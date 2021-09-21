@@ -49,8 +49,9 @@ void TempControl::check_safety()
 {
     control_data.error_type = 0;
     
-    //Limit T incubator reference
-    if(control_data.T_incubator_ref > 100.0) { control_data.T_incubator_ref = 100.0; control_data.error_type = 1;}
+    //Limit T incubator reference (0 - 50 allowed)
+    if(control_data.T_incubator_ref > 50.0) { control_data.T_incubator_ref = 50.0; control_data.error_type = 1;}
+    if(control_data.T_incubator_ref < 0.0)  { control_data.T_incubator_ref = 0.0; control_data.error_type = 1;}
 
     //Check if thermistor sensor values are within reason
     if(control_data.T0 > MAXTEMP){ control_data.error_type = 1; }

@@ -15,17 +15,50 @@ Call the interrupt_initialization() function in void setup() to have the interru
 #endif
 
 extern TempControl t;
+int state=0; //State of debounce state machine
+int prev_state; //previous state of the button
+unsigned long prev_time; //time when interrupt was first triggered
+unsigned long cur_time; //current time
+unsigned long debounce_duration = 10; //ms
 
+bool debounce_check()
+{
+  switch(state){
+    case 0: //Initial state
+      state=1;
+      break;
+    case 1: //Rising edge detected, start debounce timer
+      prev_time = millis();
+      state = 2;
+      break;
+    case 2: //Check after duration that pin is still high
+      if((cur_time - prev_time) > debounce_duration)
+      {
+        state = 0;
+        return true;
+      }
+      break;
+    default:
+      return false;
+      break;
+  }
+
+}
 
 void do_count()
 {
-    if(digitalRead(3) == digitalRead(2)){ t.control_data.T_incubator_ref -= 1.0; }
-    else { t.control_data.T_incubator_ref += 1.0; }
+  cur_time = millis();
+  if(debounce_check())
+  {
+    if(digitalRead(3)){ t.control_data.T_incubator_ref += 0.5; }
+    else { t.control_data.T_incubator_ref -= 0.5; }
+  }
 }
+
 
 void interrupt_initialization()
 {
-  pinMode(3, INPUT_PULLUP);
-  pinMode(2, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(2), do_count, RISING);
+  pinMode(3, INPUT);
+  pinMode(2, INPUT);
+  attachInterrupt(digitalPinToInterrupt(2), do_count, LOW);
 }

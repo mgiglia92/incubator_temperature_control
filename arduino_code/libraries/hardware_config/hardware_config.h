@@ -16,17 +16,17 @@
 #define RS0 10000.0 //Series resistance for Thermistor0
 #define B0 3950.0 //Beta value for Thermistor0
 
-#define RN1 10000.0 //Nominal resistance for Thermistor0
-#define RS1 10000.0 //Series resistance for Thermistor0
-#define B1 3950.0 //Beta value for Thermistor0
+#define RN1 10000.0 //Nominal resistance for Thermistor1
+#define RS1 10000.0 //Series resistance for Thermistor1
+#define B1 3950.0 //Beta value for Thermistor1
 
-#define RN2 10000.0 //Nominal resistance for Thermistor0
-#define RS2 10000.0 //Series resistance for Thermistor0
-#define B2 3950.0 //Beta value for Thermistor0
+#define RN2 10000.0 //Nominal resistance for Thermistor2
+#define RS2 10000.0 //Series resistance for Thermistor2
+#define B2 3950.0 //Beta value for Thermistor2
 
-#define RN3 10000.0 //Nominal resistance for Thermistor0
-#define RS3 10000.0 //Series resistance for Thermistor0
-#define B3 3950.0 //Beta value for Thermistor0
+#define RN3 10000.0 //Nominal resistance for Thermistor3
+#define RS3 10000.0 //Series resistance for Thermistor3
+#define B3 3950.0 //Beta value for Thermistor3
 
 
 #ifndef ARDUINO_H
