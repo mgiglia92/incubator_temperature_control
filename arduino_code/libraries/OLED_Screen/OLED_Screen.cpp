@@ -64,3 +64,16 @@ void OLED_Screen::populate_info(ControlData data)
     //Display the contents
     display();
 }
+
+void OLED_Screen::raw_print(ControlData data)
+{
+    Serial.print("Error: "); Serial.print(data.error_type);
+    Serial.print(" | T0: "); Serial.print(data.T0,2);
+    Serial.print(" | T1: "); Serial.print(data.T1,2);
+    Serial.print(" | T2: "); Serial.print(data.T2,2);
+    Serial.print(" | T3: "); Serial.print(data.T3,2);
+    Serial.print(" | H0: "); Serial.print(data.H0,2);
+    Serial.print(" | H1: "); Serial.print(data.H1,2);
+    Serial.print(" | Tref: "); Serial.print(data.T_incubator_ref,2);
+    Serial.println();
+}

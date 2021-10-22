@@ -37,6 +37,8 @@ class OLED_Screen:public Adafruit_SSD1306{
     create_bounding_box();
     //Populate the screen with the relevant info
     void populate_info(struct ControlData);
+    //Raw print control data to serial monitor
+    void raw_print(struct ControlData);
 };
 
 struct DisplayData{

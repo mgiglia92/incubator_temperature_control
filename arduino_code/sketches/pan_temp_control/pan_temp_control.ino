@@ -1,8 +1,8 @@
-#define HEATER_TYPE 0
+#define HEATER_TYPE 1 //Preprocessor directive to allow the extern call in InterruptConfig.h to choose which TempControl class to use, 1 is Pan, 0 is Incubator
 
-#ifndef TEMPCONTROL_H
-#include <TempControl.h>
-#define TEMPCONTROL_H
+#ifndef TEMPCONTROLPAN_H
+#include <TempControlPan.h>
+#define TEMPCONTROLPAN_H
 #endif
 #ifndef PID_H 
 #define PID_H 
@@ -18,8 +18,19 @@
 #endif
 
 
+
 //Generate struct to init PIDControl class
 struct PID_Initializer pid_init = {
+  kp:3,
+  ki:1,
+  kd:0,
+  lowerLimit:0,
+  upperLimit:255,
+  sigma:0.1,
+  Ts:1.0,
+  flag:true,
+};
+struct PID_Initializer pid_init_2 = {
   kp:3,
   ki:1,
   kd:0,
@@ -45,8 +56,8 @@ struct ControlData data = {
 };
 
 //Create Singletons
-PIDControl controller(pid_init);
-TempControl t(pid_init);
+//PIDControl controller(pid_init);
+TempControlPan t(pid_init, pid_init_2);
 OLED_Screen screen;
 
 
@@ -66,5 +77,6 @@ void setup(){
 
 void loop(){
   t.do_controls();
-  screen.populate_info(t.control_data);
+//  screen.populate_info(t.control_data);
+  screen.raw_print(t.control_data);
 }

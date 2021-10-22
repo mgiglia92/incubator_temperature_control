@@ -9,12 +9,15 @@ Call the interrupt_initialization() function in void setup() to have the interru
 #include <Arduino.h>
 #endif
 
-#ifndef TEMPCONTROL_H
-#define TEMPCONTROL_H
-#include <TempControl.h>
+//Check preprocessor directive to choose correct TempControl class type
+//This directive should be defined in the .ino file
+#if HEATER_TYPE == 1
+  extern TempControlPan t;
+#elif HEATER_TYPE == 0
+  extern TempControl t;
 #endif
 
-extern TempControl t;
+//Debouncing state machine for inexpensive digital encoder
 int state=0; //State of debounce state machine
 int prev_state; //previous state of the button
 unsigned long prev_time; //time when interrupt was first triggered
